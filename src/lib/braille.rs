@@ -85,38 +85,43 @@ fn convert_char_to_braille(c: char) -> String {
     }
 }
 
-#[test]
-fn test_convert_str_to_braille_code() {
-    assert_eq!(
-        convert_str_to_braille_code("code"),
-        "100100101010100110100010"
-    );
-    assert_eq!(
-        convert_str_to_braille_code("Braille"),
-        "000001110000111010100000010100111000111000100010"
-    );
-    assert_eq!(
-        convert_str_to_braille_code("Hello World"),
-        "000001110010100010111000111000101010000000000001010111101010111010111000100110"
-    );
-    assert_eq!(
-        convert_str_to_braille_code("The quick brown fox jumps over the lazy dog"),
-        "0000010111101100101000100000001111101010010101001001001010000000001100001110101010100101111\
+#[cfg(test)]
+mod test_braille {
+    use super::*;
+
+    #[test]
+    fn test_convert_str_to_braille_code() {
+        assert_eq!(
+            convert_str_to_braille_code("code"),
+            "100100101010100110100010"
+        );
+        assert_eq!(
+            convert_str_to_braille_code("Braille"),
+            "000001110000111010100000010100111000111000100010"
+        );
+        assert_eq!(
+            convert_str_to_braille_code("Hello World"),
+            "000001110010100010111000111000101010000000000001010111101010111010111000100110"
+        );
+        assert_eq!(
+            convert_str_to_braille_code("The quick brown fox jumps over the lazy dog"),
+            "0000010111101100101000100000001111101010010101001001001010000000001100001110101010100101111\
         011100000001101001010101011010000000101101010011011001111000111000000001010101110011000101110\
         10000000011110110010100010000000111000100000101011101111000000100110101010110110"
-    );
-}
+        );
+    }
 
-#[test]
-fn test_convert_char_to_braille() {
-    assert_eq!(convert_char_to_braille('a'), "100000");
-    assert_eq!(convert_char_to_braille('j'), "010110");
-    assert_eq!(convert_char_to_braille('k'), "101000");
-    assert_eq!(convert_char_to_braille('t'), "011110");
-    assert_eq!(convert_char_to_braille('u'), "101001");
-    assert_eq!(convert_char_to_braille('z'), "101011");
-    assert_eq!(convert_char_to_braille('w'), "010111");
-    assert_eq!(convert_char_to_braille('A'), "000001100000");
-    assert_eq!(convert_char_to_braille(' '), "000000");
-    assert_eq!(convert_char_to_braille('*'), "");
+    #[test]
+    fn test_convert_char_to_braille() {
+        assert_eq!(convert_char_to_braille('a'), "100000");
+        assert_eq!(convert_char_to_braille('j'), "010110");
+        assert_eq!(convert_char_to_braille('k'), "101000");
+        assert_eq!(convert_char_to_braille('t'), "011110");
+        assert_eq!(convert_char_to_braille('u'), "101001");
+        assert_eq!(convert_char_to_braille('z'), "101011");
+        assert_eq!(convert_char_to_braille('w'), "010111");
+        assert_eq!(convert_char_to_braille('A'), "000001100000");
+        assert_eq!(convert_char_to_braille(' '), "000000");
+        assert_eq!(convert_char_to_braille('*'), "");
+    }
 }
