@@ -70,8 +70,9 @@ Output:
 000001110000111010100000010100111000111000100010
 ```
 
+## Level 2
 
-### Challenge 2: Ion Flux Relabeling
+### Challenge 1: Ion Flux Relabeling
 
 #### Explain
 
