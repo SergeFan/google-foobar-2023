@@ -6,6 +6,8 @@ The solution of each challenge can be found in `src/lib` as individual module.
 
 NOTE: Google FooBar 2023 Programming Challenge only accepts Java or Python code as solution, all solutions of this repo are only for personal training purpose.
 
+## Level 1
+
 ### Challenge 1: Braille Translation
 
 #### Explain
