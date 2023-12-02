@@ -26,6 +26,8 @@ fn main() {
     // Challenge 2: Find the Access Code
     assert_eq!(find_lucky_triples(vec![1, 1, 1]), 1);
     assert_eq!(find_lucky_triples(vec![1, 2, 3, 4, 5, 6]), 3);
+    
+    // Challenge 3: Prepare the Bunnies' Escape
 
     println!("All challenges completed.")
 }
