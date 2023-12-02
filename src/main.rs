@@ -21,6 +21,8 @@ fn main() {
     // Level 3
     // Challenge 1: The Grandest Staircase Of Them All
     assert_eq!(count_staircase_variants(200), 487067745);
+    
+    // Challenge 2: Find the Access Code
 
     println!("All challenges completed.")
 }
