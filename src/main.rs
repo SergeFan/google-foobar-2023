@@ -1,6 +1,7 @@
 use google_foobar_2023::lib::braille::convert_str_to_braille_code;
 use google_foobar_2023::lib::ion_flux::find_ion_flux_labels;
 use google_foobar_2023::lib::not_volunteered::find_min_steps_to_target;
+use google_foobar_2023::lib::staircase::count_staircase_variants;
 
 fn main() {
     // Level 1
@@ -16,4 +17,10 @@ fn main() {
 
     // Challenge 2: Don't get volunteered!
     assert_eq!(find_min_steps_to_target(56, 15), 5);
+
+    // Level 3
+    // Challenge 1: The Grandest Staircase Of Them All
+    assert_eq!(count_staircase_variants(200), 487067745);
+
+    println!("All challenges completed.")
 }
