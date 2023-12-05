@@ -5,9 +5,12 @@ type Matrix = Vec<Vec<usize>>;
 const DIRECTIONS: [[isize; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
 
 pub fn find_escape_route(map: Matrix) -> usize {
+    // count steps from both the entrance and the exit
     let step_count_map_from_entrance = create_step_count_map(&map);
     let step_count_map_from_exit = flip_map(create_step_count_map(&flip_map(map)));
 
+    // if there is a shortest path (even with a wall to break),
+    // the shortest path should pass the point that has the minimum step counts when counting from the entrance and the exit
     zip(step_count_map_from_entrance, step_count_map_from_exit)
         .map(|rows| {
             zip(rows.0, rows.1)
@@ -61,6 +64,8 @@ fn create_step_count_map(map: &Matrix) -> Matrix {
 }
 
 fn flip_map(map: Matrix) -> Matrix {
+    // flip the map, so the exit will become the entrance
+    // this make it easy to count steps when the map is not square shape
     map.into_iter()
         .rev()
         .map(|row| row.into_iter().rev().collect())
