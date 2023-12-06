@@ -41,5 +41,8 @@ fn main() {
         11
     );
 
+    // Level 4
+    // Challenge 1: Free the Bunny Workers
+
     println!("All challenges completed.")
 }
