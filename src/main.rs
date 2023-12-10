@@ -1,6 +1,7 @@
 use google_foobar_2023::lib::access_code::find_lucky_triples;
 use google_foobar_2023::lib::braille::convert_str_to_braille_code;
 use google_foobar_2023::lib::escape::find_escape_route;
+use google_foobar_2023::lib::free_bunnies::generate_keys;
 use google_foobar_2023::lib::ion_flux::find_ion_flux_labels;
 use google_foobar_2023::lib::not_volunteered::find_min_steps_to_target;
 use google_foobar_2023::lib::staircase::count_staircase_variants;
@@ -43,6 +44,16 @@ fn main() {
 
     // Level 4
     // Challenge 1: Free the Bunny Workers
+    assert_eq!(
+        generate_keys(5, 3),
+        vec![
+            vec![0, 1, 2, 3, 4, 5],
+            vec![0, 1, 2, 6, 7, 8],
+            vec![0, 3, 4, 6, 7, 9],
+            vec![1, 3, 5, 6, 8, 9],
+            vec![2, 4, 5, 7, 8, 9],
+        ]
+    );
 
     println!("All challenges completed.")
 }
