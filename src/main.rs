@@ -55,5 +55,7 @@ fn main() {
         ]
     );
 
+    // Challenge 2: Running with Bunnies
+
     println!("All challenges completed.")
 }
