@@ -4,6 +4,7 @@ use google_foobar_2023::lib::escape::find_escape_route;
 use google_foobar_2023::lib::free_bunnies::generate_keys;
 use google_foobar_2023::lib::ion_flux::find_ion_flux_labels;
 use google_foobar_2023::lib::not_volunteered::find_min_steps_to_target;
+use google_foobar_2023::lib::running_with_bunnies::rescue_bunnies;
 use google_foobar_2023::lib::staircase::count_staircase_variants;
 
 fn main() {
@@ -56,6 +57,19 @@ fn main() {
     );
 
     // Challenge 2: Running with Bunnies
+    assert_eq!(
+        rescue_bunnies(
+            &mut vec![
+                vec![0, 2, 2, 2, -1],
+                vec![9, 0, 2, 2, -1],
+                vec![9, 3, 0, 2, -1],
+                vec![9, 3, 2, 0, -1],
+                vec![9, 3, 2, 2, 0],
+            ],
+            1,
+        ),
+        vec![1, 2]
+    );
 
     println!("All challenges completed.")
 }
