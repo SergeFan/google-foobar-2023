@@ -21,7 +21,7 @@ Better buck up and get working, or you'll never make it to the top...
 
 > Commander Lambda sure is a task-master, aren't they? You're being worked to the bone!
 
-#### Explain
+#### Explanation
 Because Commander Lambda is an equal-opportunity despot, they have several visually-impaired minions.
 But Lambda never bothered to follow intergalactic standards for workplace accommodations,
 so those minions have a hard time navigating her space station.
@@ -107,7 +107,7 @@ so you'd better keep working. Chop chop!
 > At least all this time spent running errands all over Commander Lambda's space station have given you a really good understanding of the station's layout.
 > You'll need that when you're finally ready to destroy the LAMBCHOP and rescue the bunny workers.
 
-#### Explain
+#### Explanation
 
 Oh no!
 Commander Lambda's latest experiment to improve the efficiency of the LAMBCHOP doomsday device has backfired spectacularly.
@@ -177,7 +177,7 @@ Output:
 > You're an apple person yourself, but you file the information away for future reference.
 > You never know when you might need to bribe a trainer (or three)...
 
-#### Explain
+#### Explanation
 
 As a henchman on Commander Lambda's space station,
 you're expected to be resourceful, smart, and a quick thinker.
@@ -258,7 +258,7 @@ Can you use your new access to finally topple Commander Lambda's evil empire?
 > You know this because you've already had to take all of them to the dry cleaner's. Twice!
 
 
-#### Explain
+#### Explanation
 
 With the LAMBCHOP doomsday device finished,
 Commander Lambda is preparing to debut on the galactic stage -- but in order to make a grand entrance, Lambda needs a grand staircase!
@@ -336,7 +336,7 @@ Output:
 > One of these days you're going to manage to glimpse Commander Lambda's password over their shoulder.
 > But the Commander is very careful about security and you haven't managed it yet...
 
-#### Explain
+#### Explanation
 
 In order to destroy Commander Lambda's LAMBCHOP doomsday device, you'll need access to it.
 But the only door leading to the LAMBCHOP chamber is secured with a unique lock system whose number of passcodes changes daily.
@@ -391,7 +391,7 @@ Output:
 > There are a lot of difficult things about being undercover as Commander Lambda's personal assistant,
 > but you have to say, the personal spa and private hot cocoa bar are pretty awesome.
 
-#### Explain
+#### Explanation
 
 You're awfully close to destroying the LAMBCHOP doomsday device and freeing Commander Lambda's bunny workers,
 but once they're free of the work duties the bunnies are going to need to escape Lambda's space station via the escape pods as quickly as possible.
@@ -454,7 +454,7 @@ Can you rescue the bunny workers and escape before the entire thing explodes?
 > not a repeat of the Great Cowland Station fiasco!
 > You didn't think rescuing bunnies would involve this much running.
 
-#### Explain
+#### Explanation
 
 You need to free the bunny workers before Commander Lambda's space station explodes!
 Unfortunately,
@@ -560,7 +560,7 @@ Output:
 > As a personal assistant, you have the latest in standing desk and ergonomic chair technology,
 > and it sure makes a difference!
 
-#### Explain
+#### Explanation
 
 You and the bunny workers need to get out of this collapsing death trap of a space station -- and fast!
 Unfortunately, some of the bunnies have been weakened by their long work shifts and can't run very fast.
@@ -663,4 +663,136 @@ Output:
 
 ```
 [1, 2]
+```
+
+## Level 5
+
+Oh no! You escaped Commander Lambda's exploding space station -- but so did the Commander,
+and Lambda is definitely not happy with you.
+Lambda is chasing you in a heavily-armed starfighter,
+while you and the bunny workers are stuck in these lumbering escape pods.
+It'll take all your wits and cleverness to escape such a hare-y situation,
+so you'd better hop to it!
+
+### Challenge 1: Expanding Nebula
+
+> It's not regulation, but you think if you can bypass the compressor,
+> you can squeeze a few extra bursts of speed out of this escape pod.
+
+#### Explanation
+
+You've escaped Commander Lambda's exploding space station along with numerous escape pods full of bunnies.
+But -- oh no! -- one of the escape pods has flown into a nearby nebula, causing you to lose track of it.
+You start monitoring the nebula, but unfortunately, just a moment too late to find where the pod went.
+However, you do find that the gas of the steadily expanding nebula follows a simple pattern,
+meaning that you should be able to determine the previous state of the gas and narrow down where you might find the pod.
+
+From the scans of the nebula, you have found that it is very flat and distributed in distinct patches,
+so you can model it as a 2D grid.
+You find that the current existence of gas in a cell of the grid is determined exactly by its 4 nearby cells,
+specifically,
+(1) that cell,
+(2) the cell below it,
+(3) the cell to the right of it, and
+(4) the cell below and to the right of it.
+If, in the current state, exactly 1 of those 4 cells in the `2x2` block has gas, then it will also have gas in the next state.
+Otherwise, the cell will be empty in the next state.
+
+For example, let's say the previous state of the grid `(p)` was:
+
+```
+. O . .
+. . O .
+. . . O
+O . . .
+```
+
+To see how this grid will change to become the current grid `(c)` over the next time step,
+consider the `2x2` blocks of cells around each cell.
+Of the `2x2` block of `[p[0][0], p[0][1], p[1][0], p[1][1]]`, only `p[0][1]` has gas in it,
+which means this `2x2` block would become cell `c[0][0]` with gas in the next time step:
+
+```
+. O -> O
+. .
+```
+
+Likewise, in the next `2x2` block to the right consisting of `[p[0][1], p[0][2], p[1][1], p[1][2]]`,
+two of the containing cells have gas, so in the next state of the grid, `c[0][1]` will **NOT** have gas:
+
+```
+O . -> .
+. O
+```
+
+Following this pattern to its conclusion, from the previous state `p`, the current state of the grid `c` will be:
+
+```
+O . O
+. O .
+O . O
+```
+
+Note that the resulting output will have 1 fewer row and column,
+since the bottom and rightmost cells do not have a cell below and to the right of them, respectively.
+
+Write a function `solution(g)` where `g` is an array of array of bools saying whether there is gas in each cell (the current scan of the nebula),
+and return an int with the number of possible previous states that could have resulted in that grid after 1 time step. 
+For instance, if the function were given the current state `c` above,
+it would deduce that the possible previous states were `p` (given above) as well as its horizontal and vertical reflections, and would return 4.
+The width of the grid will be between 3 and 50 inclusive,
+and the height of the grid will be between 3 and 9 inclusive.
+The solution will always be less than one billion `(10^9)`.
+
+#### Test Case
+
+Input:
+
+```
+solution([
+    [True, True, False, True, False, True, False, True, True, False],
+    [True, True, False, False, False, False, True, True, True, False],
+    [True, True, False, False, False, False, False, False, False, True],
+    [False, True, False, False, False, False, True, True, False, False],
+])
+```
+
+Output:
+
+```
+11567
+```
+
+Input:
+
+```
+solution([
+    [True, False, True],
+    [False, True, False],
+    [True, False, True],
+])
+```
+
+Output:
+
+```
+4
+```
+
+Input:
+
+```
+solution([
+    [True, False, True, False, False, True, True, True],
+    [True, False, True, False, False, False, True, False],
+    [True, True, True, False, False, False, True, False],
+    [True, False, True, False, False, False, True, False],
+    [True, False, True, False, False, True, True, True],
+])
+```
+
+Output:
+
+```
+254
 ```
