@@ -1,6 +1,7 @@
 use google_foobar_2023::lib::access_code::find_lucky_triples;
 use google_foobar_2023::lib::braille::convert_str_to_braille_code;
 use google_foobar_2023::lib::escape::find_escape_route;
+use google_foobar_2023::lib::expanding_nebula::count_previous_status;
 use google_foobar_2023::lib::free_bunnies::generate_keys;
 use google_foobar_2023::lib::ion_flux::find_ion_flux_labels;
 use google_foobar_2023::lib::not_volunteered::find_min_steps_to_target;
@@ -73,6 +74,16 @@ fn main() {
 
     // Level 5
     // Challenge 1: Expanding Nebula
+    assert_eq!(
+        count_previous_status(vec![
+            vec![true, false, true, false, false, true, true, true],
+            vec![true, false, true, false, false, false, true, false],
+            vec![true, true, true, false, false, false, true, false],
+            vec![true, false, true, false, false, false, true, false],
+            vec![true, false, true, false, false, true, true, true],
+        ]),
+        254
+    );
 
     println!("All challenges completed.")
 }

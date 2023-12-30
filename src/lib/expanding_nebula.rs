@@ -45,25 +45,22 @@ pub fn count_previous_status(current_status: Vec<Vec<bool>>) -> usize {
         column_values.push(column_value);
     }
 
-    let mut possible_previous_status_column_count: Vec<usize> =
-        vec![1; previous_status_column_varieties];
+    let mut column_variety_count = vec![1; previous_status_column_varieties];
 
     for column_value in column_values {
-        let mut possible_previous_status_column_count_by_now: Vec<usize> =
-            vec![0; previous_status_column_varieties];
+        let mut column_pair_variety_count = vec![0; previous_status_column_varieties];
 
         if let Some(previous_status_column_pairs) = previous_status_column_pairs.get(&column_value)
         {
             for (first_column, second_column) in previous_status_column_pairs {
-                possible_previous_status_column_count_by_now[*second_column] +=
-                    possible_previous_status_column_count[*first_column];
+                column_pair_variety_count[*second_column] += column_variety_count[*first_column];
             }
 
-            possible_previous_status_column_count = possible_previous_status_column_count_by_now;
+            column_variety_count = column_pair_variety_count;
         }
     }
 
-    possible_previous_status_column_count.iter().sum()
+    column_variety_count.iter().sum()
 }
 
 fn generate_next_status_column(
