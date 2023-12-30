@@ -16,7 +16,7 @@ pub fn count_previous_status(current_status: Vec<Vec<bool>>) -> usize {
     for first_column in 0..previous_status_column_varieties {
         for second_column in 0..previous_status_column_varieties {
             let generated_column =
-                generate_next_status_column(first_column, second_column, column_height);
+                generate_status_column(first_column, second_column, column_height);
 
             match previous_status_column_pairs.get_mut(&generated_column) {
                 None => {
@@ -30,9 +30,9 @@ pub fn count_previous_status(current_status: Vec<Vec<bool>>) -> usize {
         }
     }
 
-    // Treat status column bool values as bits, thus whole column can be stored as integer
     let mut column_values: Vec<usize> = Vec::new();
 
+    // Treat status column bool values as bits, thus whole column can be stored as integer
     for i in 0..row_width {
         let mut column_value: usize = 0;
 
@@ -47,6 +47,7 @@ pub fn count_previous_status(current_status: Vec<Vec<bool>>) -> usize {
 
     let mut column_variety_count = vec![1; previous_status_column_varieties];
 
+    // For each current status column, find possible previous status column pairs and add-up all possible varieties
     for column_value in column_values {
         let mut column_pair_variety_count = vec![0; previous_status_column_varieties];
 
@@ -63,11 +64,34 @@ pub fn count_previous_status(current_status: Vec<Vec<bool>>) -> usize {
     column_variety_count.iter().sum()
 }
 
-fn generate_next_status_column(
+fn generate_status_column(
     first_column: usize,
     second_column: usize,
     column_height: usize,
 ) -> usize {
+    /*!
+    - parameters
+        `first_column`: previous status column pair - left column
+        `second_column`: previous status column pair - right column
+        `column_height`: current status column height
+
+    - explanation
+        To generate current status column, a `2 * (column_height + 1)` sized previous status column pair is needed.
+
+        `column_a/c` represent the slices of `first_column[0..column_height]` and `first_column[1..column_height + 1]` (as integers respectively).
+        `column_b/d` represent the slices of `second_column[0..column_height]` and `second_column[1..column_height + 1]` (as integers respectively).
+
+        These four columns have the same height of `current_height`,
+        and the elements with the same index of each column are exactly the elements of `2 x 2` grids of the previous status column pair.
+
+        Since the restriction that only one grid of `2 x 2` grids is `true` will generate current status grid as `true`,
+        thus the BIT_AND of 1 and 3 NOTs can generate the current status grid (i.e. 1 `true` and 3 `false` will result in `true`, others will result in `false`)
+
+        For the four BIT_ANDs, take BIT_OR for the final result,
+        which represents that the current status grid can be generated from varies `2 x 2` previous status grids,
+        therefore previous status column pair varieties that generate the same current status column can be grouped.
+    */
+
     let column_a = first_column & !(1 << column_height);
     let column_b = second_column & !(1 << column_height);
     let column_c = first_column >> 1;
