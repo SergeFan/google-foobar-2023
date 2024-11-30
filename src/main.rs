@@ -85,5 +85,5 @@ fn main() {
         254
     );
 
-    println!("All challenges completed.")
+    println!("All challenges accomplished.")
 }
