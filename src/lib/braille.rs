@@ -1,18 +1,3 @@
-use phf::phf_map;
-
-static BRAILLE_LETTERS: phf::Map<char, u8> = phf_map! {
-    'a' => 0b100_000,
-    'b' => 0b110_000,
-    'c' => 0b100_100,
-    'd' => 0b100_110,
-    'e' => 0b100_010,
-    'f' => 0b110_100,
-    'g' => 0b110_110,
-    'h' => 0b110_010,
-    'i' => 0b010_100,
-    'j' => 0b010_110,
-};
-
 const PADDLE_1: u8 = 0b001_000;
 const PADDLE_2: u8 = 0b001_001;
 const CAPITAL: u8 = 0b000_001;
@@ -28,48 +13,50 @@ pub fn convert_str_to_braille_code(str: &str) -> String {
     braille_code
 }
 
+fn get_braille_code(c: char) -> u8 {
+    match c {
+        'a' => 0b100_000,
+        'b' => 0b110_000,
+        'c' => 0b100_100,
+        'd' => 0b100_110,
+        'e' => 0b100_010,
+        'f' => 0b110_100,
+        'g' => 0b110_110,
+        'h' => 0b110_010,
+        'i' => 0b010_100,
+        'j' => 0b010_110,
+        _ => 0b000_000,
+    }
+}
+
 fn convert_char_to_braille(c: char) -> String {
     match c {
         'a'..='j' => {
-            format!(
-                "{:06b}",
-                BRAILLE_LETTERS
-                    .get(&c)
-                    .expect("letter out of range ('a' to 'j')")
-            )
+            format!("{:06b}", get_braille_code(c))
         }
 
         'k'..='t' => {
             format!(
                 "{:06b}",
-                BRAILLE_LETTERS
-                    .get(&((c.to_ascii_lowercase() as u8 - 10) as char))
-                    .expect("letter out of range ('k' to 't')")
-                    + PADDLE_1
+                get_braille_code((c.to_ascii_lowercase() as u8 - 10) as char) + PADDLE_1
             )
         }
 
         'u'..='v' => {
             format!(
                 "{:06b}",
-                BRAILLE_LETTERS
-                    .get(&((c.to_ascii_lowercase() as u8 - 20) as char))
-                    .unwrap()
-                    + PADDLE_2
+                get_braille_code((c.to_ascii_lowercase() as u8 - 20) as char) + PADDLE_2
             )
         }
 
         'w' => {
-            format!("{:06b}", BRAILLE_LETTERS.get(&'j').unwrap() + CAPITAL)
+            format!("{:06b}", get_braille_code('j') + CAPITAL)
         }
 
         'x'..='z' => {
             format!(
                 "{:06b}",
-                BRAILLE_LETTERS
-                    .get(&((c.to_ascii_lowercase() as u8 - 21) as char))
-                    .unwrap()
-                    + PADDLE_2
+                get_braille_code((c.to_ascii_lowercase() as u8 - 21) as char) + PADDLE_2
             )
         }
 
