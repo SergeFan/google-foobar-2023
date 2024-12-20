@@ -88,5 +88,5 @@ fn main() {
     // For your eyes only!
     println!("b'D0IHBhYQAB1dT0FUVEITARASEUkCSEYNGwkYFhQUEAsJSFtOUwAHBxAWCAtKT01OUwASFRoBER0J\nSFtOUwwaEAcWAQdMBARJWEVTEhYbDAtYDQwLGhFTU09TQhtABA4NHwAQVFlTQhxPCgMHABZTU09T\nQh1PDgRJWEVTFRocQk4USEYZHQtVVAg='");
 
-    println!("All challenges completed.")
+    println!("All challenges accomplished.");
 }
